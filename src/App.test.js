@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, act, waitFor } from '@testing-library/react';
+import React from 'react';
 import App from './App';
 
 
@@ -8,7 +9,7 @@ describe("App Component", () => {
     expect(appComponent).toMatchSnapshot();
   })
 
-  test("Process CSV to Table", () => {
+  test("Process CSV to Table", async () => {
 
     const FILE_CONTENT = `Name,Job
     Lakshmi,  UI Engineer
@@ -29,14 +30,20 @@ describe("App Component", () => {
     const input = screen.getByTestId("inputFile"); // <element data-testid="inputFile"  />
     expect(input).toBeInTheDocument();
 
+    const file = new File([FILE_CONTENT], FILE_NAME);
 
-
-    const file = new File([FILE_CONTENT], FILE_NAME)
-    fireEvent.change(input, {
-      target: {
-        files: [file]
-      }
-    })
+    act(() => {
+      fireEvent.change(input, {
+        target: {
+          files: [file]
+        }
+      })
+    });
+    
+    await waitFor(() => expect( screen.getByText('UI Engineer') ).toBeInTheDocument())
+    expect(appComponent).toMatchSnapshot();
 
   })
+
+
 })
