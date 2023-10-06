@@ -9,6 +9,14 @@ describe("App Component", () => {
     expect(appComponent).toMatchSnapshot();
   })
 
+  test("Shouls show error for non csv file", async () => {
+    const file = new File([''], 'data.html');
+    render(<App />);
+    const input = screen.getByTestId("inputFile");
+    fireEvent.change(input, { target: { files: [file] } });
+    await waitFor(() => expect(screen.getByText(`Please provide correct .csv file`)).toBeInTheDocument())
+  })
+
   test("Process CSV to Table", async () => {
 
     const FILE_CONTENT = `Name,Job
@@ -39,8 +47,8 @@ describe("App Component", () => {
         }
       })
     });
-    
-    await waitFor(() => expect( screen.getByText('UI Engineer') ).toBeInTheDocument())
+
+    await waitFor(() => expect(screen.getByText('UI Engineer')).toBeInTheDocument())
     expect(appComponent).toMatchSnapshot();
 
   })

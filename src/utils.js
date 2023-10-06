@@ -18,13 +18,14 @@ export const getFileContent = (file) => {
       const { result } = event.target;
       resolve(result);
     };
-    reader.onerror = (event) => {
-      reject(event.target.error);
-    };
+    // reader.onerror = (event) => {
+    //   reject(event.target.error);
+    // };
     reader.readAsText(file);
   });
 };
 
+/*
 export const getFileContentByCallback = (
   file,
   onFileContentSuccess,
@@ -40,6 +41,7 @@ export const getFileContentByCallback = (
   };
   reader.readAsText(file);
 };
+*/
 
 export const convertCsvToJSON = (csvData) => {
   const [headerLine, ...dataLines] = csvData.split('\n');

@@ -21,9 +21,6 @@ export default function App() {
         .then((fileData) => {
           setCsvData(fileData);
         })
-        .catch((fileError) =>
-          console.log(':: ERROR READING FILE ::', fileError)
-        );
     }
 
     // getFileContentByCallback(

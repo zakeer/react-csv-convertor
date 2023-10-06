@@ -43,8 +43,8 @@ describe("Utils Test", () => {
   it("Should return headers and data", () => {
     const SAMPLE_DATA = `Name,Job
     Kalyan,UI Developer
-    Samina,Web Engineer
-    Muskan,UI Intern
+    Samina,"Web, Engineer"
+    Muskan,"UI, Intern"
     `
     const { headers, data } = convertCsvToJSON(SAMPLE_DATA); // { headers, data }
     expect(headers.length).toEqual(2);
